@@ -1,1 +1,1 @@
-# RemoteHwInfoMonitoring
+# HwInfoService
