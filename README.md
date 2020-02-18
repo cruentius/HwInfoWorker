@@ -1,1 +1,1 @@
-# HWINFO64Monitoring
+# RemoteHwInfoMonitoring
