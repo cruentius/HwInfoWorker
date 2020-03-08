@@ -4,6 +4,7 @@ using HwInfoService.Infrastructure.Connectors.ElasticSearchDbStores.HwInfoElemen
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -28,14 +29,14 @@ namespace HwInfoService.Infrastructure.BackgroundServices
         {
             await base.StartAsync(cancellationToken);
 
-            _logger.LogInformation("Service started");
+            _logger.LogInformation($"Service is started at {DateTime.Now}");
         }
 
         public async override Task StopAsync(CancellationToken cancellationToken)
         {
             await base.StopAsync(cancellationToken);
 
-            _logger.LogInformation("Service stopped");
+            _logger.LogInformation($"Service is stopped at {DateTime.Now}");
         }
 
         protected override async Task ExecuteAsync(CancellationToken cancellationToken)
