@@ -52,7 +52,7 @@ namespace HwInfoService.Infrastructure.BackgroundServices
 
                 await _store.Store(hwInfoElement, cancellationToken);
 
-                _logger.LogDebug("Service successfully stored an hwInfo Element");
+                _logger.LogInformation($"Service successfully stored an hwInfo Element at {DateTime.Now}");
 
                 await Task.Delay(delayMs, cancellationToken);
             }
