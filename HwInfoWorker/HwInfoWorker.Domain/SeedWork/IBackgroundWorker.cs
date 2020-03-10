@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace HwInfoWorker.Domain.SeedWork
 {
-    public interface IBackgroundService
+    public interface IBackgroundWorker
     {
         Task StartAsync(CancellationToken cancellationToken);
         Task StopAsync(CancellationToken cancellationToken);

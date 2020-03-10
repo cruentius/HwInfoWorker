@@ -1,6 +1,6 @@
 using HwInfoReader.AspNetCore;
 using HwInfoWorker.Infrastructure;
-using HwInfoWorker.Infrastructure.BackgroundServices;
+using HwInfoWorker.Infrastructure.BackgroundWorkers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -25,7 +25,7 @@ namespace HwInfoWorker
 
                     services.AddHwInfoReader();
                     services.AddInfrastructure(configuration, environment);
-                    services.AddHostedService<StoreHwInfoElementService>();
+                    services.AddHostedService<StoreHwInfoElementWorker>();
                 });
     }
 }

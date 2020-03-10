@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace HwInfoWorker.Domain.AggregatesModel.HwInfoElementAggregate
 {
-    public interface IHwInfoRepository : IRepository<HwInfoElement>
+    public interface IHwInfoElementRepository : IRepository<HwInfoElement>
     {
         IEnumerable<HwInfoSensorElement> GetSensorElements();
         IEnumerable<HwInfoSensorReadingElement> GetSensorReadingElements();

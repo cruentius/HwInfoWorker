@@ -9,7 +9,7 @@ namespace HwInfoWorker.Infrastructure.Repositories
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services
-                .AddTransient<IHwInfoRepository, HwInfoRepository>();
+                .AddTransient<IHwInfoElementRepository, HwInfoElementRepository>();
 
             return services;
         }

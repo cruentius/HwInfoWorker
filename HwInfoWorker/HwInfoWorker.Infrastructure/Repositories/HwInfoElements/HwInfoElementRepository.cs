@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace HwInfoWorker.Infrastructure.Repositories.HwInfo
 {
-    public class HwInfoRepository : IHwInfoRepository
+    public class HwInfoElementRepository : IHwInfoElementRepository
     {
         private readonly IHwInfoReader _reader;
 
-        public HwInfoRepository(IHwInfoReader reader)
+        public HwInfoElementRepository(IHwInfoReader reader)
         {
             _reader = reader;
         }
