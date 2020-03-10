@@ -1,4 +1,5 @@
-﻿using HwInfoService.Infrastructure.Connectors.ElasticSearchDbStores.Configuration;
+﻿using DearNova.ApplicationConfiguration;
+using HwInfoService.Infrastructure.Connectors.ElasticSearchDbStores.Configuration;
 using HwInfoService.Infrastructure.Connectors.ElasticSearchDbStores.HwInfoElements;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,9 +20,10 @@ namespace HwInfoService.Infrastructure.Connectors.ElasticSearchDbStores
             var config = configuration.GetSection(ElasticSearchConstants.Name)
                 .Get<ElasticSearchConfiguration>();
 
-            services.AddSingleton<IElasticClient>(new ElasticClient(ConnectionSettings(config.EndpointAddress, config.IndexName)));
-
-            services.AddTransient<IHwInfoElementsStore, HwInfoElementsStore>();
+            services
+                .AddSingletonConfiguration<ElasticSearchConfiguration>(configuration)
+                .AddSingleton<IElasticClient>(new ElasticClient(ConnectionSettings(config.EndpointAddress, config.IndexName)))
+                .AddTransient<IHwInfoElementsStore, HwInfoElementsStore>();
 
             return services;
         }
