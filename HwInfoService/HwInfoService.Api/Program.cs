@@ -1,4 +1,7 @@
-using Microsoft.AspNetCore.Hosting;
+using HwInfoReader.AspNetCore;
+using HwInfoService.Infrastructure;
+using HwInfoService.Infrastructure.BackgroundServices;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace HwInfoService.Api
@@ -14,10 +17,15 @@ namespace HwInfoService.Api
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
+                .UseWindowsService()
+                .ConfigureServices((hostContext, services) =>
                 {
-                    webBuilder.UseStartup<Startup>();
-                })
-                .UseWindowsService();
+                    var configuration = hostContext.Configuration;
+                    var environment = hostContext.HostingEnvironment;
+
+                    services.AddHwInfoReader();
+                    services.AddInfrastructure(configuration, environment);
+                    services.AddHostedService<StoreHwInfoElementService>();
+                });
     }
 }
