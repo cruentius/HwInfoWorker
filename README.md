@@ -1,1 +1,1 @@
-# HwInfoService
+# HwInfoWorker
