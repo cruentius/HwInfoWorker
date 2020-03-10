@@ -2,9 +2,9 @@
 
 namespace HwInfoWorker.Infrastructure.Connectors.ElasticSearchDbStores.Configuration
 {
-    public class ElasticSearchConfiguration : ApplicationConfigurationBase
+    public class ElasticSearchStoreConfiguration : ApplicationConfigurationBase
     {
-        public override string Name => ElasticSearchConstants.Name;
+        public override string Name => ElasticSearchStoreConstants.Name;
         public string EndpointAddress { get; set; }
         public string IndexName { get; set; }
     }

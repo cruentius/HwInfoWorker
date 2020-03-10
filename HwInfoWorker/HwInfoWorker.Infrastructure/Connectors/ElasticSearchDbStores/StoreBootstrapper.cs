@@ -8,20 +8,20 @@ using System;
 
 namespace HwInfoWorker.Infrastructure.Connectors.ElasticSearchDbStores
 {
-    public static class ElasticSearchConstants
+    public static class ElasticSearchStoreConstants
     {
-        public const string Name = "ElasticSearchService";
+        public const string Name = "ElasticSearchStore";
     }
 
     public static class StoreBootstrapper
     {
         public static IServiceCollection AddStores(this IServiceCollection services, IConfiguration configuration)
         {
-            var config = configuration.GetSection(ElasticSearchConstants.Name)
-                .Get<ElasticSearchConfiguration>();
+            var config = configuration.GetSection(ElasticSearchStoreConstants.Name)
+                .Get<ElasticSearchStoreConfiguration>();
 
             services
-                .AddSingletonConfiguration<ElasticSearchConfiguration>(configuration)
+                .AddSingletonConfiguration<ElasticSearchStoreConfiguration>(configuration)
                 .AddSingleton<IElasticClient>(new ElasticClient(ConnectionSettings(config.EndpointAddress, config.IndexName)))
                 .AddTransient<IHwInfoElementsStore, HwInfoElementsStore>();
 
