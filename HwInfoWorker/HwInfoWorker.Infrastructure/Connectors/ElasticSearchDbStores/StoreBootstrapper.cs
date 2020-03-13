@@ -1,6 +1,6 @@
-﻿using DearNova.ApplicationConfiguration;
-using HwInfoWorker.Infrastructure.Connectors.ElasticSearchDbStores.Configuration;
+﻿using HwInfoWorker.Infrastructure.Connectors.ElasticSearchDbStores.Configuration;
 using HwInfoWorker.Infrastructure.Connectors.ElasticSearchDbStores.HwInfoElements;
+using HwInfoWorker.Shared.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Nest;
@@ -17,11 +17,10 @@ namespace HwInfoWorker.Infrastructure.Connectors.ElasticSearchDbStores
     {
         public static IServiceCollection AddStores(this IServiceCollection services, IConfiguration configuration)
         {
-            var config = configuration.GetSection(ElasticSearchStoreConstants.Name)
-                .Get<ElasticSearchStoreConfiguration>();
+            configuration.Bind<ElasticSearchStoreConfiguration>(ElasticSearchStoreConstants.Name, out var config);
 
             services
-                .AddSingletonConfiguration<ElasticSearchStoreConfiguration>(configuration)
+                .Configure<ElasticSearchStoreConfiguration>(configuration.GetSection(ElasticSearchStoreConstants.Name))
                 .AddSingleton<IElasticClient>(new ElasticClient(ConnectionSettings(config.EndpointAddress, config.IndexName)))
                 .AddTransient<IHwInfoElementsStore, HwInfoElementsStore>();
 
