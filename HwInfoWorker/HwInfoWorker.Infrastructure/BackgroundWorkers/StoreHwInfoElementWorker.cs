@@ -45,10 +45,10 @@ namespace HwInfoWorker.Infrastructure.BackgroundWorkers
 
             while (!cancellationToken.IsCancellationRequested)
             {
-                var sensorElements = _repository.GetSensorElements();
-                var sensorReadingElements = _repository.GetSensorReadingElements();
+                var sensors = _repository.GetSensors();
+                var readings = _repository.GetReadings();
 
-                var hwInfoElement = HwInfoElement.Create(sensorElements, sensorReadingElements);
+                var hwInfoElement = HwInfoElement.Create(sensors, readings);
 
                 await _store.Store(hwInfoElement, cancellationToken);
 

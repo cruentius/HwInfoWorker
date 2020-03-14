@@ -1,7 +1,7 @@
 ﻿using HwInfoReader.Abstractions;
-using HwInfoReader.Abstractions.Models;
 using HwInfoWorker.Domain.AggregatesModel.HwInfoElementAggregate;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HwInfoWorker.Infrastructure.Repositories.HwInfo
 {
@@ -14,14 +14,18 @@ namespace HwInfoWorker.Infrastructure.Repositories.HwInfo
             _reader = reader;
         }
 
-        public IEnumerable<HwInfoSensorElement> GetSensorElements()
+        public IEnumerable<HwInfoSensor> GetSensors()
         {
-            return _reader.ReadSensors();
+            return _reader.ReadSensors()
+                .Select(s => 
+                    HwInfoSensor.Create(s.dwSensorID, s.dwSensorInst, s.szSensorNameOrig, s.szSensorNameUser));
         }
 
-        public IEnumerable<HwInfoSensorReadingElement> GetSensorReadingElements()
+        public IEnumerable<HwInfoReading> GetReadings()
         {
-            return _reader.ReadSensorReadings();
+            return _reader.ReadSensorReadings()
+                .Select(s => 
+                    HwInfoReading.Create(s.tReading.ToString(), s.dwSensorIndex, s.dwReadingID, s.szLabelOrig, s.szLabelUser, s.szUnit, s.Value, s.ValueMin, s.ValueMax, s.ValueAvg));
         }
     }
 }

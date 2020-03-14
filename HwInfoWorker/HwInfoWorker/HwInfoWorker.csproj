@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\HwInfoWorker.Domain\HwInfoWorker.Domain.csproj" />
     <ProjectReference Include="..\HwInfoWorker.Infrastructure\HwInfoWorker.Infrastructure.csproj" />
+    <ProjectReference Include="..\HwInfoWorker.Shared\HwInfoWorker.Shared.csproj" />
   </ItemGroup>
 
 </Project>
