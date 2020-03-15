@@ -29,14 +29,14 @@ namespace HwInfoWorker.Infrastructure.BackgroundWorkers
         {
             await base.StartAsync(cancellationToken);
 
-            _logger.LogInformation($"Worker is started at {DateTime.Now}");
+            _logger.LogInformation("Worker is started at {UtcNow}", DateTime.UtcNow);
         }
 
         public async override Task StopAsync(CancellationToken cancellationToken)
         {
             await base.StopAsync(cancellationToken);
 
-            _logger.LogInformation($"Worker is stopped at {DateTime.Now}");
+            _logger.LogInformation("Worker is stopped at {UtcNow}", DateTime.UtcNow);
         }
 
         protected override async Task ExecuteAsync(CancellationToken cancellationToken)
@@ -52,7 +52,7 @@ namespace HwInfoWorker.Infrastructure.BackgroundWorkers
 
                 await _store.Store(hwInfoElement, cancellationToken);
 
-                _logger.LogInformation($"Worker successfully stored an hwInfo Element at {DateTime.Now}");
+                _logger.LogInformation("Worker successfully stored an hwInfo Element at {UtcNow}", DateTime.UtcNow);
 
                 await Task.Delay(delayMs, cancellationToken);
             }
