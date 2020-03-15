@@ -3,6 +3,7 @@ using HwInfoWorker.Infrastructure;
 using HwInfoWorker.Infrastructure.BackgroundWorkers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace HwInfoWorker
 {
@@ -18,6 +19,14 @@ namespace HwInfoWorker
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .UseWindowsService()
+                .ConfigureLogging(loggingBuilder =>
+                {
+                    loggingBuilder.AddEventLog(settings =>
+                    {
+                        settings.LogName = "HwInfoWorker";
+                        settings.SourceName = "HwInfoWorker";
+                    });
+                })
                 .ConfigureServices((hostContext, services) =>
                 {
                     var configuration = hostContext.Configuration;
@@ -25,6 +34,7 @@ namespace HwInfoWorker
 
                     services.AddHwInfoReader();
                     services.AddInfrastructure(configuration, environment);
+
                     services.AddHostedService<StoreHwInfoElementWorker>();
                 });
     }

@@ -8,6 +8,7 @@
     <PackageReference Include="HwInfoReader" Version="1.1.1" />
     <PackageReference Include="HwInfoReader.AspNetCore" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="3.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.2" />
   </ItemGroup>
 
   <ItemGroup>
