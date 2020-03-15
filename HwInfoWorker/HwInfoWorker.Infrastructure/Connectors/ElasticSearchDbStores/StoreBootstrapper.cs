@@ -21,14 +21,17 @@ namespace HwInfoWorker.Infrastructure.Connectors.ElasticSearchDbStores
 
             services
                 .Configure<ElasticSearchStoreConfiguration>(configuration.GetSection(ElasticSearchStoreConstants.Name))
-                .AddSingleton<IElasticClient>(new ElasticClient(ConnectionSettings(config.EndpointAddress, config.IndexName)))
+                .AddSingleton<IElasticClient>(new ElasticClient(ConnectionSettings(config.EndpointAddress, config.IndexName, config.TimeoutMs, config.MaxRetries)))
                 .AddTransient<IHwInfoElementsStore, HwInfoElementsStore>();
 
             return services;
         }
 
-        private static ConnectionSettings ConnectionSettings(string endpointAddress, string defaultIndex) =>
+        private static ConnectionSettings ConnectionSettings(string endpointAddress, string defaultIndex, int timeoutMs, int maxRetries) =>
             new ConnectionSettings(new Uri(endpointAddress))
-                .DefaultIndex(defaultIndex);
+                .DefaultIndex(defaultIndex)
+                .RequestTimeout(TimeSpan.FromMilliseconds(timeoutMs))
+                .MaximumRetries(maxRetries)
+                .ThrowExceptions(true);
     }
 }
