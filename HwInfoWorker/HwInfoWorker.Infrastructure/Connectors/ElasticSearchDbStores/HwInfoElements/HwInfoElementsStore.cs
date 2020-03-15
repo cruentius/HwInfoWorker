@@ -26,7 +26,7 @@ namespace HwInfoWorker.Infrastructure.Connectors.ElasticSearchDbStores.HwInfoEle
             }
             catch (Exception ex)
             {
-                _logger.LogError("Could not store HwInfoElement document", ex);
+                _logger.LogError(ex, "Could not store HwInfoElement document");
             }            
         }        
     }

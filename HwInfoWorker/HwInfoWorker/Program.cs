@@ -1,6 +1,7 @@
 using HwInfoReader.AspNetCore;
 using HwInfoWorker.Infrastructure;
 using HwInfoWorker.Infrastructure.BackgroundWorkers;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -19,8 +20,13 @@ namespace HwInfoWorker
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .UseWindowsService()
-                .ConfigureLogging(loggingBuilder =>
+                .ConfigureLogging((hostContext, loggingBuilder) =>
                 {
+                    var configuration = hostContext.Configuration;
+
+                    loggingBuilder.AddConfiguration(configuration.GetSection("Logging"));
+                    loggingBuilder.AddConsole();
+                    loggingBuilder.AddDebug();
                     loggingBuilder.AddEventLog(settings =>
                     {
                         settings.LogName = "HwInfoWorker";
