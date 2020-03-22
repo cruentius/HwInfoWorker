@@ -22,6 +22,27 @@ Change the properties in 'appsettings.json' to satisfy your configuration:
 
 # Usage
 
-Build the application in Release mode. Register the service with PowerShell commands found [here](https://docs.microsoft.com/nl-nl/aspnet/core/host-and-deploy/windows-service?view=aspnetcore-3.1&tabs=visual-studio).
+Build the application in Release mode. 
+Register the service with these PowerShell commands:
 
-After registering and starting the service, you are able to see application logs in 'Event Viewer'. 
+```powershell
+$acl = Get-Acl "path\to\HwInfoWorker\HwInfoWorker\HwInfoWorker\bin\Release\netcoreapp3.1"
+$aclRuleArgs = "domain\username", "Read,Write,ReadAndExecute", "ContainerInherit,ObjectInherit", "None", "Allow"
+$accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule($aclRuleArgs)
+$acl.SetAccessRule($accessRule)
+$acl | Set-Acl "path\to\HwInfoWorker\HwInfoWorker\HwInfoWorker\bin\Release\netcoreapp3.1"
+
+New-Service -Name HwInfoWorker -BinaryPathName path\to\HwInfoWorker\HwInfoWorker\HwInfoWorker\bin\Release\netcoreapp3.1\HwInfoWorker.exe -Credential domain\username -Description "test service" -DisplayName "HwInfoWorker" -StartupType Manual
+```
+
+Start the service like so:
+
+```powershell
+Start-Service -Name HwInfoWorker
+```
+
+For more information how to register or start a service, please read [this](https://docs.microsoft.com/nl-nl/aspnet/core/host-and-deploy/windows-service?view=aspnetcore-3.1&tabs=visual-studio).
+
+After registering and starting the service, you are able to see application logs in 'Event Viewer'.
+
+Available on [releases](https://github.com/Antiserum420/HwInfoWorker/releases) page.
