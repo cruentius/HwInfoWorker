@@ -1,6 +1,5 @@
 ﻿using HwInfoWorker.Infrastructure.Connectors.ElasticSearchDbStores.Configuration;
 using HwInfoWorker.Infrastructure.Connectors.ElasticSearchDbStores.HwInfoElements;
-using HwInfoWorker.Shared.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Nest;
@@ -17,7 +16,8 @@ namespace HwInfoWorker.Infrastructure.Connectors.ElasticSearchDbStores
     {
         public static IServiceCollection AddStores(this IServiceCollection services, IConfiguration configuration)
         {
-            configuration.Bind<ElasticSearchStoreConfiguration>(ElasticSearchStoreConstants.Name, out var config);
+            var config = new ElasticSearchStoreConfiguration();
+            configuration.GetSection(ElasticSearchStoreConstants.Name).Bind(config);
 
             services
                 .Configure<ElasticSearchStoreConfiguration>(configuration.GetSection(ElasticSearchStoreConstants.Name))

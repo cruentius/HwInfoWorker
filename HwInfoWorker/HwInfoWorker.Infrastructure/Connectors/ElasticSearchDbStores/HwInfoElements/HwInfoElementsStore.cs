@@ -18,15 +18,16 @@ namespace HwInfoWorker.Infrastructure.Connectors.ElasticSearchDbStores.HwInfoEle
             _client = client;
         }
 
-        public async Task Store(HwInfoElement element, CancellationToken cancellationToken)
+        public async Task<bool> TryStore(HwInfoElement element, CancellationToken cancellationToken)
         {
             try
             {
-                await _client.CreateDocumentAsync(element, cancellationToken);
+                return (await _client.CreateDocumentAsync(element, cancellationToken)).IsValid;
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Could not store HwInfoElement document");
+                return false;
             }            
         }        
     }

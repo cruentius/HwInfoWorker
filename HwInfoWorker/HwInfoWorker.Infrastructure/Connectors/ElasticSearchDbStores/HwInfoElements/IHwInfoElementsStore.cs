@@ -6,6 +6,6 @@ namespace HwInfoWorker.Infrastructure.Connectors.ElasticSearchDbStores.HwInfoEle
 {
     public interface IHwInfoElementsStore
     {
-        Task Store(HwInfoElement element, CancellationToken cancellationToken);
+        Task<bool> TryStore(HwInfoElement element, CancellationToken cancellationToken);
     }
 }

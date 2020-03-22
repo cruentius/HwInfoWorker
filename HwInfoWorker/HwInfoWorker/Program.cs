@@ -40,7 +40,7 @@ namespace HwInfoWorker
 
                     services.AddHwInfoReader();
                     services.AddInfrastructure(configuration, environment);
-
+                
                     services.AddHostedService<StoreHwInfoElementWorker>();
                 });
     }

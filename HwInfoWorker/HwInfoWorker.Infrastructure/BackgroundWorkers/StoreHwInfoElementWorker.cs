@@ -1,6 +1,7 @@
 ﻿using HwInfoWorker.Domain.AggregatesModel.HwInfoElementAggregate;
 using HwInfoWorker.Domain.SeedWork;
 using HwInfoWorker.Infrastructure.Connectors.ElasticSearchDbStores.HwInfoElements;
+using HwInfoWorker.Shared.Utils;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -29,14 +30,14 @@ namespace HwInfoWorker.Infrastructure.BackgroundWorkers
         {
             await base.StartAsync(cancellationToken);
 
-            _logger.LogInformation("Worker is started at {UtcNow}", DateTime.UtcNow);
+            _logger.LogInformation("Worker is started at: {UtcNow}", DateTime.UtcNow);
         }
 
         public async override Task StopAsync(CancellationToken cancellationToken)
         {
             await base.StopAsync(cancellationToken);
 
-            _logger.LogInformation("Worker is stopped at {UtcNow}", DateTime.UtcNow);
+            _logger.LogInformation("Worker is stopped at: {UtcNow}", DateTime.UtcNow);
         }
 
         protected override async Task ExecuteAsync(CancellationToken cancellationToken)
@@ -50,10 +51,14 @@ namespace HwInfoWorker.Infrastructure.BackgroundWorkers
 
                 var hwInfoElement = HwInfoElement.Create(sensors, readings);
 
-                await _store.Store(hwInfoElement, cancellationToken);
-
-                _logger.LogInformation("Worker successfully stored an hwInfo Element at {UtcNow}", DateTime.UtcNow);
-
+                using (_logger.BeginScope(LoggingScope.Create().Add("HwInfoElementId", hwInfoElement.Id)))
+                {
+                    if(await _store.TryStore(hwInfoElement, cancellationToken))
+                    {
+                        _logger.LogInformation("Worker successfully stored an hwInfoElement at: {UtcNow}", DateTime.UtcNow);
+                    }
+                }
+                
                 await Task.Delay(delayMs, cancellationToken);
             }
         }
