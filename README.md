@@ -1,7 +1,7 @@
 # HwInfoWorker
 
 ASP .NET Core 3.1 Worker Service to store HwInfoElements to an ElasticSearch Database instance.
-Can be used in conjunction with [Grafana](https://grafana.com) to display the stored data in a dashboard.
+Can be used in conjunction with [Grafana](https://grafana.com) to display and monitor the stored data in a dashboard.
 
 # Release notes
 
@@ -24,4 +24,4 @@ Change the properties in 'appsettings.json' to satisfy your configuration:
 
 Build the application in Release mode. Register the service with PowerShell commands found [here](https://docs.microsoft.com/nl-nl/aspnet/core/host-and-deploy/windows-service?view=aspnetcore-3.1&tabs=visual-studio).
 
-After registering and starting the service, you are able to see logs in 'Event Viewer'. 
+After registering and starting the service, you are able to see application logs in 'Event Viewer'. 
