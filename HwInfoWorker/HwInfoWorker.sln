@@ -9,7 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HwInfoWorker.Domain", "HwIn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HwInfoWorker", "HwInfoWorker\HwInfoWorker.csproj", "{2CFFCF5E-084C-4734-A687-0BADD606E84F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HwInfoWorker.Shared", "HwInfoWorker.Shared\HwInfoWorker.Shared.csproj", "{52558D05-CF12-4AFC-BB70-D658D4C40DDC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HwInfoWorker.Shared", "HwInfoWorker.Shared\HwInfoWorker.Shared.csproj", "{52558D05-CF12-4AFC-BB70-D658D4C40DDC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Root", "Root", "{22BB710B-912E-4697-A6E9-9A9D6357D609}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitignore = ..\.gitignore
+		..\README.md = ..\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
