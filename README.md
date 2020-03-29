@@ -29,27 +29,27 @@ Change the properties in 'appsettings.json' to satisfy your configuration:
 Open a PowerShell window with admin privileges. Run this command and type 'Yes' to temporarily enable execution of scripts on the system:
 
 ```powershell
-	Set-ExecutionPolicy RemoteSigned
+Set-ExecutionPolicy RemoteSigned
 ```
 
 Open a new PowerShell window with admin privileges and change directory to the root folder of the solution. 
 Run the scripts like so to build and install the service (order does matter!):
 
 ```powershell
-	.\build-service.ps1
-	.\install-service.ps1
+.\build-service.ps1
+.\install-service.ps1
 ```
 
 Service can be started with this script:
 
 ```powershell
-	.\start-service.ps1
+.\start-service.ps1
 ```
 
 And stopped by this script:
 
 ```powershell
-	.\stop-service.ps1
+.\stop-service.ps1
 ```
 
 After starting the service, you are able to see application logs in 'Event Viewer'.
@@ -59,7 +59,7 @@ If you wish to uninstall the service, use the .\uninstall-service.ps1 script.
 After installation, do not forget to disable execution of scripts on the system:
 
 ```powershell
-	Set-ExecutionPolicy Restricted
+Set-ExecutionPolicy Restricted
 ```
 
 Available on [releases](https://github.com/Antiserum420/HwInfoWorker/releases) page.
