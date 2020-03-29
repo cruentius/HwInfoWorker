@@ -14,7 +14,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Root", "Root", "{22BB710B-912E-4697-A6E9-9A9D6357D609}"
 	ProjectSection(SolutionItems) = preProject
 		..\.gitignore = ..\.gitignore
+		..\build-service.ps1 = ..\build-service.ps1
+		..\install-service.ps1 = ..\install-service.ps1
 		..\README.md = ..\README.md
+		..\start-service.ps1 = ..\start-service.ps1
+		..\stop-service.ps1 = ..\stop-service.ps1
+		..\uninstall-service.ps1 = ..\uninstall-service.ps1
 	EndProjectSection
 EndProject
 Global
