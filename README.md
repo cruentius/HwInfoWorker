@@ -5,6 +5,11 @@ Can be used in conjunction with [Grafana](https://grafana.com) to display and mo
 
 # Release notes
 
+version 1.0.1:
+- added service scripts to solution
+- Did some code refactoring
+- Updated nuget packages
+
 version 1.0.0:
 - Initial release
 
@@ -21,28 +26,40 @@ Change the properties in 'appsettings.json' to satisfy your configuration:
 | BackgroundWorkers.StoreHwInfoElementWorker.DelayMs  | delay in milliseconds for the background worker (e.g 10000) |
 
 # Usage
-
-Build the application in Release mode. 
-Register the service with these PowerShell commands:
+Open a PowerShell window with admin privileges. Run this command and type 'Yes' to temporarily enable execution of scripts on the system:
 
 ```powershell
-$acl = Get-Acl "path\to\HwInfoWorker\HwInfoWorker\HwInfoWorker\bin\Release\netcoreapp3.1"
-$aclRuleArgs = "domain\username", "Read,Write,ReadAndExecute", "ContainerInherit,ObjectInherit", "None", "Allow"
-$accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule($aclRuleArgs)
-$acl.SetAccessRule($accessRule)
-$acl | Set-Acl "path\to\HwInfoWorker\HwInfoWorker\HwInfoWorker\bin\Release\netcoreapp3.1"
-
-New-Service -Name HwInfoWorker -BinaryPathName path\to\HwInfoWorker\HwInfoWorker\HwInfoWorker\bin\Release\netcoreapp3.1\HwInfoWorker.exe -Credential domain\username -Description "test service" -DisplayName "HwInfoWorker" -StartupType Manual
+	Set-ExecutionPolicy RemoteSigned
 ```
 
-Start the service like so:
+Open a new PowerShell window with admin privileges and change directory to the root folder of the solution. 
+Run the scripts like so to build and install the service (order does matter!):
 
 ```powershell
-Start-Service -Name HwInfoWorker
+	.\build-service.ps1
+	.\install-service.ps1
 ```
 
-For more information how to register or start a service, please read [this](https://docs.microsoft.com/nl-nl/aspnet/core/host-and-deploy/windows-service?view=aspnetcore-3.1&tabs=visual-studio).
+Service can be started with this script:
 
-After registering and starting the service, you are able to see application logs in 'Event Viewer'.
+```powershell
+	.\start-service.ps1
+```
+
+And stopped by this script:
+
+```powershell
+	.\stop-service.ps1
+```
+
+After starting the service, you are able to see application logs in 'Event Viewer'.
+
+If you wish to uninstall the service, use the .\uninstall-service.ps1 script.
+
+After installation, do not forget to disable execution of scripts on the system:
+
+```powershell
+	Set-ExecutionPolicy Restricted
+```
 
 Available on [releases](https://github.com/Antiserum420/HwInfoWorker/releases) page.
