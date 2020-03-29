@@ -6,7 +6,7 @@ Can be used in conjunction with [Grafana](https://grafana.com) to display and mo
 # Release notes
 
 version 1.0.1:
-- added service scripts to solution
+- Added service scripts to solution
 - Did some code refactoring
 - Updated nuget packages
 
